@@ -71,7 +71,7 @@ function placeOrder() {
             }
         ])
         .then(function (answer) {
-            var query = "SELECT stock_quantity, price FROM products WHERE ?";
+            var query = "SELECT stock_quantity, price, product_sales FROM products WHERE ?";
             connection.query(query, { item_id: answer.id_item }, function (err, res) {
                 //console.log(res);
                 if (answer.quantity > res[0].stock_quantity) {
@@ -84,10 +84,11 @@ function placeOrder() {
                     //console.log("your price is " + price);
                     var total=price*answer.quantity;
                     //console.log("Your total is " + total);
+                    var productSales=res[0].product_sales+total;
                     //console.log("The new inventory is " + new_inventory);
                     var item = answer.id_item;
                     //console.log("The item to update is " + item);
-                    completeOrder(new_inventory,item,total)
+                    completeOrder(new_inventory,item,total,productSales )
 
 
                 }
@@ -97,12 +98,15 @@ function placeOrder() {
         })
 };
 
-function completeOrder(new_inventory, item,total) {
+function completeOrder(new_inventory, item,total,productSales) {
     var query = connection.query(
-        "UPDATE products SET ? WHERE ?",
+        "UPDATE products SET ?,? WHERE ?",
         [
             {
                 stock_quantity: new_inventory
+            },
+            {
+                product_sales:productSales
             },
             {
                 item_id: item
