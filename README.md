@@ -7,6 +7,9 @@ npm of MySQL, Inquirer and Console Table to make the results shown below. The CU
 but the Supervisor does it with the combination of two tables, the products table and the department table. The use of INNER JOIN is
 necesarry to create a combination of tables of both.
 
+See a video explanation https://drive.google.com/file/d/1iFf4ucIpXTMz6cGwm8rJDUXHBKGBahEQ/view
+
+
 <h2>Customer</h2>
 In the Customer part you are able to select two option:
 1. See what items are available for purchasing. Each of the items is arrange by ID, product name and the price.
