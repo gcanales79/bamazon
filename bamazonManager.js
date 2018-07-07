@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+const cTable = require('console.table');
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -58,11 +59,12 @@ function bamazon() {
 }
 
 function catalogSearch() {
-    var query = "SELECT * FROM products";
+    var query = "SELECT item_id,product_name,price,stock_quantity FROM products";
     connection.query(query, function (err, res) {
-        for (var i = 0; i < res.length; i++) {
+        /*for (var i = 0; i < res.length; i++) {
             console.log("Item Id: " + res[i].item_id + " || Name: " + res[i].product_name + " || Price: " + res[i].price + " || ")
-        }
+        }*/
+        console.table(res);
         bamazon();
     })
 }
@@ -70,9 +72,10 @@ function catalogSearch() {
 function lowInventory() {
     var query = "SELECT * FROM products WHERE stock_quantity between 0 and  5";
     connection.query(query, function (err, res) {
-        for (var i = 0; i < res.length; i++) {
+        /*for (var i = 0; i < res.length; i++) {
             console.log("Item Id: " + res[i].item_id + " || Name: " + res[i].product_name + " || Price: " + res[i].price + " || ")
-        }
+        }*/
+        console.table(res);
         bamazon();
     })
 }
